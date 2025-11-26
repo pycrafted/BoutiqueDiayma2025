@@ -6,37 +6,55 @@
 
 <br/>
 <div id="panel-body">
-    <table class="table table-bordered table-striped table-sm">
-        <thead>
+    <h2><i class="fa fa-box"></i> @Localizer["ProductList"]</h2>
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead class="thead-dark">
             <tr>
-                <th>
-                    <label>@Localizer["Name"]</label>
-                </th>
-                <th>
-                    <label>@Localizer["Description"]</label>
-                </th>
-                <th>
-                    <label>@Localizer["Price"]</label>
-                </th>
-                <th>
-                    <label>@Localizer["Stock"]</label>
-                </th>
+                <th>@Localizer["Name"]</th>
+                <th>@Localizer["Description"]</th>
+                <th class="text-center">@Localizer["Price"]</th>
+                <th class="text-center">@Localizer["Stock"]</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (Product p in Model)
             {
                 <tr>
-                    <td>@p.Name</td>
+                    <td><strong>@p.Name</strong></td>
                     <td>@p.Description</td>
-                    <td style="text-align:center">@p.Price.ToString("c")</td>
-                    <td style="text-align:center">@p.Stock</td>
-                    <td>
+                    <td class="text-center">
+                        <strong class="text-primary">@p.Price.ToString("c")</strong>
+                    </td>
+                    <td class="text-center">
+                        @if (p.Stock > 10)
+                        {
+                            <span class="badge badge-success badge-pill">@p.Stock en stock</span>
+                        }
+                        else if (p.Stock > 0)
+                        {
+                            <span class="badge badge-warning badge-pill">@p.Stock restant(s)</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger badge-pill">Rupture de stock</span>
+                        }
+                    </td>
+                    <td class="text-center">
                         <form id="@p.Id" asp-action="AddToCart" asp-controller="Cart" method="post">
                             <input type="hidden" name="id" value="@p.Id" />
-                            <button type="submit" class="btn btn-primary">
-                                @Localizer["AddToCart"]
-                            </button>
+                            @if (p.Stock > 0)
+                            {
+                                <button type="submit" class="btn btn-primary btn-sm" title="Ajouter au panier">
+                                    <i class="fa fa-cart-plus"></i> @Localizer["AddToCart"]
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-secondary btn-sm" disabled title="Produit indisponible">
+                                    <i class="fa fa-ban"></i> Indisponible
+                                </button>
+                            }
                         </form>
                     </td>
                 </tr>

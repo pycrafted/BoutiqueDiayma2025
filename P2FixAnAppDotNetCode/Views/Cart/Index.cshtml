@@ -1,53 +1,84 @@
 ﻿@model P2FixAnAppDotNetCode.Models.Cart
 
-<h2>@Localizer["YourCart"]</h2>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>@Localizer["Quantity"]</th>
-            <th>@Localizer["Item"]</th>
-            <th class="text-right">@Localizer["Price"]</th>
-            <th class="text-right">@Localizer["Subtotal"]</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Lines)
-        {
+<h2><i class="fa fa-shopping-cart"></i> @Localizer["YourCart"]</h2>
+
+@if (Model.Lines.Count() == 0)
+{
+    <div class="alert alert-info text-center" role="alert">
+        <i class="fa fa-info-circle fa-2x mb-3"></i>
+        <h4>@Localizer["CartEmpty"]</h4>
+        <p>Votre panier est vide. Commencez vos achats !</p>
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Product">
+            <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+        </a>
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("c")</td>
-                <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("c"))
-                </td>
-                <td>
-                    <form asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="id"
-                               value="@line.Product.Id" />
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            @Localizer["Remove"]
-                        </button>
-                    </form>
-                </td>
+                <th>@Localizer["Quantity"]</th>
+                <th>@Localizer["Item"]</th>
+                <th class="text-right">@Localizer["Price"]</th>
+                <th class="text-right">@Localizer["Subtotal"]</th>
+                <th class="text-center">Action</th>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">@Localizer["Total"]:</td>
-            <td class="text-right">
-                @Model.GetTotalValue().ToString("c")
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" class="text-right">@Localizer["Average"]:</td>
-            <td class="text-right">
-                @Model.GetAverageValue().ToString("c")
-            </td>
-        </tr>
-    </tfoot>
-</table>
-<div class="text-center">
-    <a class="btn btn-primary" asp-action="Index" asp-controller="Product">@Localizer["ContinueShopping"]</a>
-    <a class="btn btn-primary" asp-action="Index" asp-controller="Order">@Localizer["Checkout"]</a>
-</div>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Lines)
+            {
+                <tr>
+                    <td class="text-center">
+                        <span class="badge badge-primary badge-pill">@line.Quantity</span>
+                    </td>
+                    <td class="text-left">
+                        <strong>@line.Product.Name</strong>
+                        @if (!string.IsNullOrEmpty(line.Product.Description))
+                        {
+                            <br /><small class="text-muted">@line.Product.Description</small>
+                        }
+                    </td>
+                    <td class="text-right">@line.Product.Price.ToString("c")</td>
+                    <td class="text-right">
+                        <strong>@((line.Quantity * line.Product.Price).ToString("c"))</strong>
+                    </td>
+                    <td class="text-center">
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="id" value="@line.Product.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger" title="Supprimer du panier">
+                                <i class="fa fa-trash"></i> @Localizer["Remove"]
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="bg-light">
+            <tr>
+                <td colspan="3" class="text-right"><strong>@Localizer["Total"]:</strong></td>
+                <td class="text-right">
+                    <strong class="text-primary" style="font-size: 1.2em;">
+                        @Model.GetTotalValue().ToString("c")
+                    </strong>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><strong>@Localizer["Average"]:</strong></td>
+                <td class="text-right">
+                    <strong>@Model.GetAverageValue().ToString("c")</strong>
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-center mt-4">
+        <a class="btn btn-outline-primary btn-lg mr-2" asp-action="Index" asp-controller="Product">
+            <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+        </a>
+        <a class="btn btn-primary btn-lg" asp-action="Index" asp-controller="Order">
+            <i class="fa fa-credit-card"></i> @Localizer["Checkout"]
+        </a>
+    </div>
+}

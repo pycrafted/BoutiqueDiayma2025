@@ -2,16 +2,28 @@
 @using Microsoft.AspNetCore.Localization
 @model P2FixAnAppDotNetCode.Models.Cart
 
-<div class="">
+<div class="d-flex align-items-center">
     @if (Model.Lines.Count() > 0)
     {
-        <small class="navbar-text">
-            <b>@Localizer["YourCart"]:</b>
-            @Model.Lines.Sum(x => x.Quantity) item(s)
-            @Model.GetTotalValue().ToString("c")
+        <div class="mr-3">
+            <small class="navbar-text text-white">
+                <b>@Localizer["YourCart"]:</b>
+                <span class="badge badge-light">@Model.Lines.Sum(x => x.Quantity) article(s)</span>
+                <strong>@Model.GetTotalValue().ToString("c")</strong>
+            </small>
+        </div>
+    }
+    else
+    {
+        <small class="navbar-text text-white mr-3">
+            <b>@Localizer["YourCart"]:</b> Vide
         </small>
     }
-    <a class="btn btn-sm btn-secondary navbar-btn" asp-controller="Cart" asp-action="Index">
+    <a class="btn btn-sm btn-light navbar-btn" asp-controller="Cart" asp-action="Index" title="Voir le panier">
         <i class="fa fa-shopping-cart"></i>
+        @if (Model.Lines.Count() > 0)
+        {
+            <span class="badge badge-danger">@Model.Lines.Sum(x => x.Quantity)</span>
+        }
     </a>
 </div>
