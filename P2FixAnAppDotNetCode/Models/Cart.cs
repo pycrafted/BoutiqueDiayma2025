@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models
@@ -24,6 +25,13 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public void AddItem(Product product, int quantity)
         {
+            // Validation des paramètres d'entrée
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "Le produit ne peut pas être null");
+            
+            if (quantity <= 0)
+                throw new ArgumentException("La quantité doit être supérieure à zéro", nameof(quantity));
+
             // Recherche du produit dans le panier avec LINQ pour améliorer la lisibilité
             var cartLine = _lignesPanier.FirstOrDefault(line => line.Product.Id == product.Id);
 

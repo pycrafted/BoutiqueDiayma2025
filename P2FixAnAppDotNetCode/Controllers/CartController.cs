@@ -24,15 +24,32 @@ namespace P2FixAnAppDotNetCode.Controllers
         [HttpPost]
         public RedirectToActionResult AddToCart(int id)
         {
+            // Validation de l'ID
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "ID de produit invalide";
+                return RedirectToAction("Index", "Product");
+            }
+
             Product product = _productService.GetProductById(id);
 
             if (product != null)
             {
-                _cart.AddItem(product, 1);
+                // Vérification du stock disponible avant d'ajouter au panier
+                if (product.Stock > 0)
+                {
+                    _cart.AddItem(product, 1);
+                    TempData["SuccessMessage"] = $"{product.Name} ajouté au panier";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Ce produit n'est plus en stock";
+                }
                 return RedirectToAction("Index");
             }
             else
             {
+                TempData["ErrorMessage"] = "Produit introuvable";
                 return RedirectToAction("Index", "Product");
             }
         }
