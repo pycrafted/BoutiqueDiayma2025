@@ -1,29 +1,90 @@
 ﻿@model P2FixAnAppDotNetCode.Models.Order
 
-<h2>@Localizer["OrderTitle"]</h2>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0"><i class="fa fa-shopping-bag"></i> @Localizer["OrderTitle"]</h2>
+                <p class="mb-0 mt-2"><small>@Localizer["EnterDetails"]</small></p>
+            </div>
+            <div class="card-body">
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fa fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+                
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                
+                <form asp-action="Index" method="post">
+                    <div class="form-section mb-4">
+                        <h4 class="text-primary border-bottom pb-2">
+                            <i class="fa fa-user"></i> @Localizer["ShipTo"]
+                        </h4>
+                        <div class="form-group">
+                            <label asp-for="Name" class="font-weight-bold">
+                                @Localizer["Name"] <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Entrez votre nom complet" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
 
-<div asp-validation-summary="All" class="text-danger"></div>
-<form asp-action="Index" method="post">
-    <h3>@Localizer["ShipTo"]</h3>
-    <div class="form-group">
-        <label>@Localizer["Name"]*:</label><input asp-for="Name" class="form-control" />
-    </div>
-    <h3>@Localizer["Adress"]</h3>
-    <div class="form-group">
-        <label>@Localizer["Location"]*:</label><input asp-for="Address" class="form-control" />
-    </div>
-    <div class="row">
-        <div class="form-group col-4">
-            <label>@Localizer["City"]*:</label><input asp-for="City" class="form-control" />
+                    <div class="form-section mb-4">
+                        <h4 class="text-primary border-bottom pb-2">
+                            <i class="fa fa-map-marker-alt"></i> @Localizer["Adress"]
+                        </h4>
+                        <div class="form-group">
+                            <label asp-for="Address" class="font-weight-bold">
+                                @Localizer["Location"] <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Address" class="form-control form-control-lg" placeholder="Numéro et nom de rue" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label asp-for="City" class="font-weight-bold">
+                                    @Localizer["City"] <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="City" class="form-control form-control-lg" placeholder="Ville" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label asp-for="Zip" class="font-weight-bold">
+                                    @Localizer["Zip"]
+                                </label>
+                                <input asp-for="Zip" class="form-control form-control-lg" placeholder="Code postal" />
+                                <span asp-validation-for="Zip" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label asp-for="Country" class="font-weight-bold">
+                                    @Localizer["Country"] <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="Country" class="form-control form-control-lg" placeholder="Pays" />
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fa fa-info-circle"></i> <strong>@Localizer["ShipSoon"]</strong>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fa fa-check-circle"></i> @Localizer["CompleteOrder"]
+                        </button>
+                        <a asp-action="Index" asp-controller="Cart" class="btn btn-outline-secondary btn-lg ml-2">
+                            <i class="fa fa-arrow-left"></i> Retour au panier
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group col-4">
-            <label>@Localizer["Zip"]:</label><input asp-for="Zip" class="form-control" />
-        </div>
-        <div class="form-group col-4">
-            <label>@Localizer["Country"]*:</label><input asp-for="Country" class="form-control" />
-        </div>
     </div>
-    <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="@Localizer["CompleteOrder"]" />
-    </div>
-</form>
+</div>

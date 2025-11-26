@@ -1,84 +1,107 @@
 ﻿@model P2FixAnAppDotNetCode.Models.Cart
 
-<h2><i class="fa fa-shopping-cart"></i> @Localizer["YourCart"]</h2>
+<div class="cart-container">
+    <div class="page-header mb-4">
+        <h1 class="display-4 text-primary">
+            <i class="fa fa-shopping-cart"></i> @Localizer["YourCart"]
+        </h1>
+    </div>
 
-@if (Model.Lines.Count() == 0)
-{
-    <div class="alert alert-info text-center" role="alert">
-        <i class="fa fa-info-circle fa-2x mb-3"></i>
-        <h4>@Localizer["CartEmpty"]</h4>
-        <p>Votre panier est vide. Commencez vos achats !</p>
-        <a class="btn btn-primary" asp-action="Index" asp-controller="Product">
-            <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
-        </a>
-    </div>
-}
-else
-{
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>@Localizer["Quantity"]</th>
-                <th>@Localizer["Item"]</th>
-                <th class="text-right">@Localizer["Price"]</th>
-                <th class="text-right">@Localizer["Subtotal"]</th>
-                <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var line in Model.Lines)
-            {
-                <tr>
-                    <td class="text-center">
-                        <span class="badge badge-primary badge-pill">@line.Quantity</span>
-                    </td>
-                    <td class="text-left">
-                        <strong>@line.Product.Name</strong>
-                        @if (!string.IsNullOrEmpty(line.Product.Description))
-                        {
-                            <br /><small class="text-muted">@line.Product.Description</small>
-                        }
-                    </td>
-                    <td class="text-right">@line.Product.Price.ToString("c")</td>
-                    <td class="text-right">
-                        <strong>@((line.Quantity * line.Product.Price).ToString("c"))</strong>
-                    </td>
-                    <td class="text-center">
-                        <form asp-action="RemoveFromCart" method="post">
-                            <input type="hidden" name="id" value="@line.Product.Id" />
-                            <button type="submit" class="btn btn-sm btn-danger" title="Supprimer du panier">
-                                <i class="fa fa-trash"></i> @Localizer["Remove"]
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot class="bg-light">
-            <tr>
-                <td colspan="3" class="text-right"><strong>@Localizer["Total"]:</strong></td>
-                <td class="text-right">
-                    <strong class="text-primary" style="font-size: 1.2em;">
-                        @Model.GetTotalValue().ToString("c")
-                    </strong>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="3" class="text-right"><strong>@Localizer["Average"]:</strong></td>
-                <td class="text-right">
-                    <strong>@Model.GetAverageValue().ToString("c")</strong>
-                </td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-    <div class="text-center mt-4">
-        <a class="btn btn-outline-primary btn-lg mr-2" asp-action="Index" asp-controller="Product">
-            <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
-        </a>
-        <a class="btn btn-primary btn-lg" asp-action="Index" asp-controller="Order">
-            <i class="fa fa-credit-card"></i> @Localizer["Checkout"]
-        </a>
-    </div>
-}
+    @if (Model.Lines.Count() == 0)
+    {
+        <div class="empty-cart text-center py-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body py-5">
+                    <i class="fa fa-shopping-cart fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted mb-3">@Localizer["CartEmpty"]</h3>
+                    <p class="text-muted mb-4">Votre panier est vide. Commencez vos achats dès maintenant !</p>
+                    <a class="btn btn-primary btn-lg" asp-action="Index" asp-controller="Product">
+                        <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fa fa-list"></i> Articles dans votre panier</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="cart-items">
+                            @foreach (var line in Model.Lines)
+                            {
+                                <div class="cart-item border-bottom p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-1 text-center">
+                                            <span class="badge badge-primary badge-lg">@line.Quantity</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h6 class="mb-1 text-primary">@line.Product.Name</h6>
+                                            @if (!string.IsNullOrEmpty(line.Product.Description))
+                                            {
+                                                <small class="text-muted">@line.Product.Description</small>
+                                            }
+                                        </div>
+                                        <div class="col-md-2 text-right">
+                                            <small class="text-muted d-block">Prix unitaire</small>
+                                            <strong>@line.Product.Price.ToString("c")</strong>
+                                        </div>
+                                        <div class="col-md-2 text-right">
+                                            <small class="text-muted d-block">Sous-total</small>
+                                            <strong class="text-primary">@((line.Quantity * line.Product.Price).ToString("c"))</strong>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                                                <input type="hidden" name="id" value="@line.Product.Id" />
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-sm sticky-top" style="top: 20px;">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0"><i class="fa fa-calculator"></i> Récapitulatif</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="summary-item d-flex justify-content-between mb-3">
+                            <span class="text-muted">Articles:</span>
+                            <strong>@Model.Lines.Sum(x => x.Quantity)</strong>
+                        </div>
+                        <div class="summary-item d-flex justify-content-between mb-3">
+                            <span class="text-muted">Moyenne:</span>
+                            <strong>@Model.GetAverageValue().ToString("c")</strong>
+                        </div>
+                        <hr>
+                        <div class="summary-total d-flex justify-content-between mb-4">
+                            <span class="h5 mb-0">Total:</span>
+                            <span class="h4 text-primary font-weight-bold mb-0">
+                                @Model.GetTotalValue().ToString("c")
+                            </span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-primary btn-lg" asp-action="Index" asp-controller="Order">
+                                <i class="fa fa-credit-card"></i> @Localizer["Checkout"]
+                            </a>
+                            <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Product">
+                                <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
