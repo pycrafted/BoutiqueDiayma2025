@@ -29,6 +29,9 @@ Le projet utilise :
 <img width="1811" height="847" alt="Capture d’écran 2025-11-25 215222" src="https://github.com/user-attachments/assets/e2564748-f357-4939-81e0-daebb4c90b97" />
 
 
+
+
+
 <img width="1186" height="317" alt="Capture d’écran 2025-11-25 215625" src="https://github.com/user-attachments/assets/65b7ad2a-7eb1-4d0f-87cf-3298a41c31ca" />
 
 
@@ -56,7 +59,8 @@ dépot github créé
 return GetCartLineList().Sum(x => x.Product.Price);
 ```
 
-![Bug du navbar - Total incorrect du panier affiché](https://github.com/user-attachments/assets/PLACEHOLDER_4)
+<img width="1672" height="867" alt="Capture d’écran 2025-11-25 220828" src="https://github.com/user-attachments/assets/664c8c25-86e9-4a84-b2cd-65b552ffb588" />
+
 
 
 
@@ -74,10 +78,10 @@ return GetCartLineList().Average(x => x.Product.Price);
 **Manifestation** : Dans la page du panier (`/Cart/Index`), La moyenne calculée ne reflète pas la réalité des quantités dans le panier
 - Elle fait une simple moyenne arithmétique des prix unitaires, ignorant que certains produits sont présents en plusieurs exemplaires
 
-![Bug de la moyenne du panier - Moyenne incorrecte affichée](https://github.com/user-attachments/assets/PLACEHOLDER_5)
+<img width="1667" height="645" alt="Capture d’écran 2025-11-25 222708" src="https://github.com/user-attachments/assets/9022e5dd-070b-4f78-a9ad-57fd9be43082" />
+
 
 ---
-
 
 ## 7. Points d'arrêt placés
 
