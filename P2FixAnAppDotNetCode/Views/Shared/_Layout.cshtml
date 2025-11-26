@@ -41,6 +41,18 @@
             transform: scale(1.05);
         }
 
+        /* Sélecteur de langue dans la navbar */
+        .navbar-select {
+            background-color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #333;
+        }
+
+        .navbar-select:focus {
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.25);
+        }
+
         /* Cartes produits */
         .product-card {
             border: none;
@@ -145,7 +157,7 @@
             animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideIn {
+        @@keyframes slideIn {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
@@ -198,7 +210,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @@media (max-width: 768px) {
             .product-card {
                 margin-bottom: 1.5rem;
             }
@@ -213,7 +225,7 @@
             animation: fadeIn 0.5s ease;
         }
 
-        @keyframes fadeIn {
+        @@keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
@@ -230,12 +242,15 @@
 </head>
 <body>
     <div class="navbar navbar-inverse bg-primary" role="navigation">
-        <div class="row">
-            <a class="col navbar-brand" asp-action="Index" asp-controller="Product" style="padding-left:12%">
-                Boutique Diayma
+        <div class="row w-100">
+            <a class="col-md-4 navbar-brand" asp-action="Index" asp-controller="Product" style="padding-left:12%">
+                <i class="fa fa-store"></i> Boutique Diayma
             </a>
-            <div class="col-4 text-right" style="padding-right:12%">
+            <div class="col-md-5 text-right d-flex align-items-center justify-content-end" style="padding-right:2%">
                 @await Component.InvokeAsync("CartSummary")
+            </div>
+            <div class="col-md-3 text-right d-flex align-items-center justify-content-end" style="padding-right:12%">
+                @await Component.InvokeAsync("LanguageSelector")
             </div>
         </div>
     </div>
@@ -263,9 +278,8 @@
         <hr />
         <footer>
             <div class="row">
-                <div class="col-8"><p style="padding-top:17px">&copy; 2025 - ESP EHOD 2025</p></div>
-                <div class="col-4">
-                    @await Component.InvokeAsync("LanguageSelector")
+                <div class="col-12 text-center">
+                    <p style="padding-top:17px">&copy; 2025 - ESP EHOD 2025</p>
                 </div>
             </div>
         </footer>

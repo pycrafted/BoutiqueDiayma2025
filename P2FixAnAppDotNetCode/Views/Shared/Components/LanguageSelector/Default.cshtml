@@ -1,19 +1,35 @@
 ﻿@model P2FixAnAppDotNetCode.Models.ViewModels.LanguageViewModel
+@using Microsoft.AspNetCore.Localization
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCulture?.RequestCulture?.UICulture?.Name ?? "en";
+    string currentLanguage = "English";
+    if (currentCulture.StartsWith("fr"))
+    {
+        currentLanguage = "French";
+    }
+    else if (currentCulture.StartsWith("es"))
+    {
+        currentLanguage = "Spanish";
+    }
+    else if (currentCulture.StartsWith("wo"))
+    {
+        currentLanguage = "Wolof";
+    }
+}
 
-<form asp-action="ChangeUiLanguage" asp-controller="Language" method="post">
-    <div class="form-group">
-        <label class="col-md-3 control-label" style="float:left">@Localizer["Language"]</label>
-        <div class="col-md-7" style="float:left">
-            <select asp-for="Language">
-                <option disabled selected style="font-style:italic">@Localizer["ChangeLanguage"]</option>
-                <option value="English">@Localizer["LanguageEnglish"]</option>
-                <option value="French">@Localizer["LanguageFrench"]</option>
-                <option value="Spanish">@Localizer["LanguageSpanish"]</option>
-                <option value="Wolof">@Localizer["LanguageWolof"]</option>
-            </select>
-        </div>
-        <input type="hidden" name="returnUrl"
-               value="@ViewContext.HttpContext.Request.Path" />
-        <button class="col-md-2" type="submit" style="float:left"> OK </button>
+<form asp-action="ChangeUiLanguage" asp-controller="Language" method="post" class="d-inline-flex align-items-center">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.Path" />
+    <div class="form-group mb-0 mr-2">
+        <select asp-for="Language" class="form-control form-control-sm navbar-select" style="min-width: 130px; display: inline-block;" onchange="this.form.submit()">
+            <option value="English" @(currentLanguage == "English" ? "selected" : "")>@Localizer["LanguageEnglish"]</option>
+            <option value="French" @(currentLanguage == "French" ? "selected" : "")>@Localizer["LanguageFrench"]</option>
+            <option value="Spanish" @(currentLanguage == "Spanish" ? "selected" : "")>@Localizer["LanguageSpanish"]</option>
+            <option value="Wolof" @(currentLanguage == "Wolof" ? "selected" : "")>@Localizer["LanguageWolof"]</option>
+        </select>
     </div>
+    <button type="submit" class="btn btn-sm btn-light" title="@Localizer["ChangeLanguage"]">
+        <i class="fa fa-globe"></i>
+    </button>
 </form>
