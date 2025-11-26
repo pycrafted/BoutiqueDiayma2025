@@ -20,16 +20,16 @@ La solution `Diayma.sln` contient **1 projet** :
 Le projet utilise :
 - **Target Framework** : `netcoreapp2.0` (.NET Core 2.0)
 
-![Fichier Diayma.csproj montrant le Target Framework](Capture%20d'écran%202025-11-25%20213600.png)
+![Fichier Diayma.csproj montrant le Target Framework](Capture d'écran 2025-11-25 213600.png)
 
 
 ## 4. Installation du SDK
 
 **SDK .NET Core 2.1.202 installé et vérifié**
 
-![Confirmation de téléchargement du SDK .NET Core 2.0](Capture%20d'écran%202025-11-25%20215222.png)
+![Confirmation de téléchargement du SDK .NET Core 2.0](Capture d'écran 2025-11-25 215222.png)
 
-![Vérification des SDK installés avec dotnet --list-sdks](Capture%20d'écran%202025-11-25%20215625.png)
+![Vérification des SDK installés avec dotnet --list-sdks](Capture d'écran 2025-11-25 215625.png)
 
 **Résultat** : SDK 2.1.202 installé (compatible avec .NET Core 2.0)
 
@@ -55,7 +55,7 @@ dépot github créé
 return GetCartLineList().Sum(x => x.Product.Price);
 ```
 
-![Bug du navbar - Total incorrect du panier affiché](Capture%20d'écran%202025-11-25%20220828.png)
+![Bug du navbar - Total incorrect du panier affiché](Capture d'écran 2025-11-25 220828.png)
 
 
 
@@ -73,7 +73,7 @@ return GetCartLineList().Average(x => x.Product.Price);
 **Manifestation** : Dans la page du panier (`/Cart/Index`), La moyenne calculée ne reflète pas la réalité des quantités dans le panier
 - Elle fait une simple moyenne arithmétique des prix unitaires, ignorant que certains produits sont présents en plusieurs exemplaires
 
-![Bug de la moyenne du panier - Moyenne incorrecte affichée](Capture%20d'écran%202025-11-25%20222708.png)
+![Bug de la moyenne du panier - Moyenne incorrecte affichée](Capture d'écran 2025-11-25 222708.png)
 
 ---
 
@@ -88,7 +88,7 @@ Les points d'arrêt ont été placés sur les lignes suivantes :
 ### d) CartController.cs - Ligne 15
 ### e) Startup.cs - Ligne 20
 
-![Point d'arrêt dans Visual Studio Code - Startup.cs ligne 20](Capture%20d'écran%202025-11-25%20224722.png)
+![Point d'arrêt dans Visual Studio Code - Startup.cs ligne 20](Capture d'écran 2025-11-25 224722.png)
 
 ## 8. Flux d'exécution détaillé - Namespaces, classes et méthodes visités
 
@@ -116,6 +116,12 @@ Les points d'arrêt ont été placés sur les lignes suivantes :
 ## 9. Déploiement en exécutable Windows
 
 ✅ **Déploiement réussi !**
+
+### Lien vers le fichier .exe (le fichier diayma.exe se trouve dans publish qui a été compressé puis mis sur mon drive)
+
+lien drive vers la ressource :
+
+[Télécharger Diayma.exe (ZIP)](https://drive.google.com/file/d/10tlIVYQxIwHhgb8hKSHKu_urzkOsh48W/view?usp=sharing)
 
 ### Commande utilisée
 

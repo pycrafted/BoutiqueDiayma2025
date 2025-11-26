@@ -42,6 +42,13 @@ namespace P2FixAnAppDotNetCode
 
             services.Configure<RequestLocalizationOptions>(opts =>
             { 
+                var frenchCulture = new CultureInfo("fr-FR");
+                
+                // Ajout du Wolof avec les mêmes paramètres de formatage que le français (nombres, dates)
+                var wolofCulture = new CultureInfo("wo");
+                wolofCulture.NumberFormat = frenchCulture.NumberFormat;
+                wolofCulture.DateTimeFormat = frenchCulture.DateTimeFormat;
+                
                 var supportedCultures = new List<CultureInfo>
                 {
                     new CultureInfo("en-GB"),
@@ -49,6 +56,7 @@ namespace P2FixAnAppDotNetCode
                     new CultureInfo("en"),
                     new CultureInfo("fr-FR"),
                     new CultureInfo("fr"),
+                    wolofCulture, // Support du Wolof ajouté
                 };
 
                 opts.DefaultRequestCulture = new RequestCulture("en");
