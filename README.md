@@ -121,7 +121,7 @@ Les points d'arrêt ont été placés sur les lignes suivantes :
 
 ## 9. Déploiement en exécutable Windows
 
-✅ **Déploiement réussi !**
+ **Déploiement réussi !**
 
 ### Lien vers le fichier .exe (le fichier diayma.exe se trouve dans publish qui a été compressé puis mis sur mon drive)
 
@@ -147,20 +147,20 @@ P2FixAnAppDotNetCode\bin\Release\netcoreapp2.0\win-x64\publish\
 
 ## 10. Améliorations apportées au projet
 
-### 🔧 Refactoring et amélioration du code
+### Refactoring et amélioration du code
 - Remplacement de `foreach` par LINQ dans `Cart.AddItem()` pour améliorer la lisibilité
 - Ajout de validation d'index dans `GetCartLineByIndex()` pour éviter les exceptions
 - Nettoyage des commentaires TODO/DONE dans le code
 - Amélioration de la validation dans `GetProductById()` (id <= 0)
 - Simplification du code avec `FirstOrDefault()` au lieu de `Where().FirstOrDefault()`
 
-### ✅ Ajout de validations et gestion d'erreurs
+### Ajout de validations et gestion d'erreurs
 - Validation des paramètres dans `Cart.AddItem()` (null check et quantité > 0)
 - Validation de l'ID dans `CartController.AddToCart()`
 - Vérification du stock disponible avant d'ajouter un produit au panier
 - Messages d'erreur et de succès via TempData pour améliorer le feedback utilisateur
 
-### 🎨 Refonte complète de l'UI/UX
+### Refonte complète de l'UI/UX
 - **Design moderne en cartes** : Transformation de la liste produits en design de cartes avec effets hover
 - **Panier redesigné** : Sidebar récapitulatif avec layout amélioré et meilleure organisation
 - **Animations fluides** : Gradients, ombres et transitions pour une expérience premium
@@ -170,7 +170,7 @@ P2FixAnAppDotNetCode\bin\Release\netcoreapp2.0\win-x64\publish\
 - **Responsive design** : Optimisé pour mobile et desktop
 - **Système de couleurs** : Variables CSS personnalisées pour cohérence
 
-### 🌍 Support multilingue
+### Support multilingue
 - Ajout du support de la langue **Wolof** avec les mêmes options de culture que le français
 - Création de 9 fichiers de ressources `.wo.resx` pour la traduction complète
 - Intégration dans le sélecteur de langue de l'interface
