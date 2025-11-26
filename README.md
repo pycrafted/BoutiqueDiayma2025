@@ -93,7 +93,8 @@ Les points d'arrêt ont été placés sur les lignes suivantes :
 ### d) CartController.cs - Ligne 15
 ### e) Startup.cs - Ligne 20
 
-![Point d'arrêt dans Visual Studio Code - Startup.cs ligne 20](https://github.com/user-attachments/assets/PLACEHOLDER_6)
+<img width="1512" height="892" alt="Capture d’écran 2025-11-25 224722" src="https://github.com/user-attachments/assets/57fcc733-db32-4192-a70d-55442a982ec2" />
+
 
 ## 8. Flux d'exécution détaillé - Namespaces, classes et méthodes visités
 
