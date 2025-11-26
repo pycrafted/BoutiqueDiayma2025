@@ -20,7 +20,8 @@ La solution `Diayma.sln` contient **1 projet** :
 Le projet utilise :
 - **Target Framework** : `netcoreapp2.0` (.NET Core 2.0)
 
-![Fichier Diayma.csproj montrant le Target Framework](https://github.com/user-attachments/assets/PLACEHOLDER_1)
+<img width="1811" height="847" alt="Capture d’écran 2025-11-25 215222" src="https://github.com/user-attachments/assets/5da8236e-73e9-4181-81f8-1c15de353e2d" />
+
 
 
 ## 4. Installation du SDK
