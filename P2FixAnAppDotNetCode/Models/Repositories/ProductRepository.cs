@@ -49,11 +49,16 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         /// </summary>
         public void UpdateProductStocks(int productId, int quantityToRemove)
         {
-            Product product = _products.First(p => p.Id == productId);
-            product.Stock = product.Stock - quantityToRemove;
+            // Correction : utiliser FirstOrDefault() au lieu de First() pour éviter InvalidOperationException si le produit n'existe pas
+            Product product = _products.FirstOrDefault(p => p.Id == productId);
+            
+            if (product != null)
+            {
+                product.Stock = product.Stock - quantityToRemove;
 
-            if (product.Stock == 0)
-                _products.Remove(product);
+                if (product.Stock == 0)
+                    _products.Remove(product);
+            }
         }
     }
 }
