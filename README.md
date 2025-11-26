@@ -26,9 +26,11 @@ Le projet utilise :
 
 **SDK .NET Core 2.1.202 installé et vérifié**
 
-![Confirmation de téléchargement du SDK .NET Core 2.0](https://github.com/user-attachments/assets/PLACEHOLDER_2)
+<img width="1811" height="847" alt="Capture d’écran 2025-11-25 215222" src="https://github.com/user-attachments/assets/e2564748-f357-4939-81e0-daebb4c90b97" />
 
-![Vérification des SDK installés avec dotnet --list-sdks](https://github.com/user-attachments/assets/PLACEHOLDER_3)
+
+<img width="1186" height="317" alt="Capture d’écran 2025-11-25 215625" src="https://github.com/user-attachments/assets/65b7ad2a-7eb1-4d0f-87cf-3298a41c31ca" />
+
 
 **Résultat** : SDK 2.1.202 installé (compatible avec .NET Core 2.0)
 
