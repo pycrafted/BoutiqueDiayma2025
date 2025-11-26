@@ -99,7 +99,7 @@ Les points d'arrêt ont été placés sur les lignes suivantes :
 ## 8. Flux d'exécution détaillé - Namespaces, classes et méthodes visités
 
 
-| # | Namespace | Classe | Méthode | Mode utilisé |
+|  | Namespace | Classe | Méthode | Mode utilisé |
 |---|-----------|--------|---------|--------------|
 | 1 | `P2FixAnAppDotNetCode` | `Program` | `Main(string[] args)` | F10 |
 | 2 | `P2FixAnAppDotNetCode` | `Program` | `BuildWebHost(string[] args)` | F11 |
