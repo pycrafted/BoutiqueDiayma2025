@@ -12,27 +12,20 @@ namespace P2FixAnAppDotNetCode.Models
         public IEnumerable<CartLine> Lines => _lignesPanier;
         private List<CartLine> _lignesPanier = new List<CartLine>();
 
+        /// <summary>
+        /// Get the list of cart lines
+        /// </summary>
         private List<CartLine> GetCartLineList()
         {
             return _lignesPanier;
         }
         /// <summary>
         /// Adds a product in the cart or increment its quantity in the cart if already added
-        /// </summary>//
+        /// </summary>
         public void AddItem(Product product, int quantity)
         {
-            // TODO implement the method
-            // DONE OD
-            CartLine cartLine = null;
-
-            foreach (var line in _lignesPanier)
-            {
-                if (line.Product.Id == product.Id)
-                {
-                    cartLine = line;
-                    break;
-                }
-            }
+            // Recherche du produit dans le panier avec LINQ pour améliorer la lisibilité
+            var cartLine = _lignesPanier.FirstOrDefault(line => line.Product.Id == product.Id);
 
             // Si le produit est déjà dans le panier, augmentez la quantité
             if (cartLine != null)
@@ -61,9 +54,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetTotalValue()
         {
-            // TODO implement the method
-            // DONE OD
-            // Correction : multiplier le prix par la quantité pour chaque produit
+            // Calcul du total en multipliant le prix par la quantité pour chaque produit
             return GetCartLineList().Sum(x => x.Product.Price * x.Quantity);
         }
 
@@ -72,9 +63,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetAverageValue()
         {
-            // TODO implement the method
-            // DONE OD
-            // Correction : calculer la moyenne en tenant compte des quantités (total / nombre total d'items)
+            // Calcul de la moyenne pondérée en tenant compte des quantités (total / nombre total d'items)
             var cartLines = GetCartLineList();
             if (cartLines.Count > 0)
             {
@@ -91,10 +80,8 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public Product FindProductInCartLines(int productId)
         {
-            // TODO implement the method
-            // DONE OD
-            // Correction : vérifier si le résultat est null avant d'accéder à Product pour éviter NullReferenceException
-            var cartLine = GetCartLineList().Where(x => x.Product.Id == productId).FirstOrDefault();
+            // Recherche du produit avec gestion null-safe pour éviter NullReferenceException
+            var cartLine = GetCartLineList().FirstOrDefault(x => x.Product.Id == productId);
             return cartLine?.Product;
         }
 
@@ -103,7 +90,12 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public CartLine GetCartLineByIndex(int index)
         {
-            return Lines.ToArray()[index];
+            // Amélioration : vérification de l'index pour éviter IndexOutOfRangeException
+            var cartLines = Lines.ToArray();
+            if (index < 0 || index >= cartLines.Length)
+                return null;
+            
+            return cartLines[index];
         }
 
         /// <summary>
