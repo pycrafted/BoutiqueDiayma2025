@@ -45,7 +45,8 @@ namespace P2FixAnAppDotNetCode.Controllers
                 {
                     TempData["ErrorMessage"] = "Ce produit n'est plus en stock";
                 }
-                return RedirectToAction("Index");
+                // Redirection vers la page des produits au lieu du panier
+                return RedirectToAction("Index", "Product");
             }
             else
             {

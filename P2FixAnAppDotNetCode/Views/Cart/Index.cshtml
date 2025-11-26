@@ -71,32 +71,51 @@
             </div>
             
             <div class="col-lg-4">
-                <div class="card shadow-sm sticky-top" style="top: 20px;">
-                    <div class="card-header bg-light">
-                        <h5 class="mb-0"><i class="fa fa-calculator"></i> Récapitulatif</h5>
+                <div class="summary-card card shadow-lg border-0 sticky-top" style="top: 20px;">
+                    <div class="card-header summary-header text-white">
+                        <h5 class="mb-0">
+                            <i class="fa fa-receipt"></i> Récapitulatif de commande
+                        </h5>
                     </div>
-                    <div class="card-body">
-                        <div class="summary-item d-flex justify-content-between mb-3">
-                            <span class="text-muted">Articles:</span>
-                            <strong>@Model.Lines.Sum(x => x.Quantity)</strong>
+                    <div class="card-body p-4">
+                        <div class="summary-section mb-4">
+                            <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-2 rounded">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-shopping-bag text-primary mr-2"></i>
+                                    <span class="text-muted">Articles:</span>
+                                </div>
+                                <strong class="text-primary">@Model.Lines.Sum(x => x.Quantity)</strong>
+                            </div>
+                            <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-2 rounded">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-chart-line text-info mr-2"></i>
+                                    <span class="text-muted">Moyenne:</span>
+                                </div>
+                                <strong class="text-info">@Model.GetAverageValue().ToString("c")</strong>
+                            </div>
                         </div>
-                        <div class="summary-item d-flex justify-content-between mb-3">
-                            <span class="text-muted">Moyenne:</span>
-                            <strong>@Model.GetAverageValue().ToString("c")</strong>
+                        
+                        <div class="summary-divider my-4">
+                            <hr class="my-0" style="border-top: 2px dashed #dee2e6;">
                         </div>
-                        <hr>
-                        <div class="summary-total d-flex justify-content-between mb-4">
-                            <span class="h5 mb-0">Total:</span>
-                            <span class="h4 text-primary font-weight-bold mb-0">
-                                @Model.GetTotalValue().ToString("c")
-                            </span>
+                        
+                        <div class="summary-total-section p-3 rounded mb-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0 font-weight-bold">
+                                    <i class="fa fa-money-bill-wave mr-2"></i>Total:
+                                </span>
+                                <span class="h3 text-primary font-weight-bold mb-0">
+                                    @Model.GetTotalValue().ToString("c")
+                                </span>
+                            </div>
                         </div>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-primary btn-lg" asp-action="Index" asp-controller="Order">
-                                <i class="fa fa-credit-card"></i> @Localizer["Checkout"]
+                        
+                        <div class="summary-actions">
+                            <a class="btn btn-primary btn-lg btn-block mb-3 summary-checkout-btn" asp-action="Index" asp-controller="Order">
+                                <i class="fa fa-credit-card mr-2"></i> @Localizer["Checkout"]
                             </a>
-                            <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Product">
-                                <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+                            <a class="btn btn-outline-primary btn-block" asp-action="Index" asp-controller="Product">
+                                <i class="fa fa-arrow-left mr-2"></i> @Localizer["ContinueShopping"]
                             </a>
                         </div>
                     </div>
